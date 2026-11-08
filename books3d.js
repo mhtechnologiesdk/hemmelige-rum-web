@@ -1,3 +1,4 @@
+import {bookInscription} from './advanced-puzzles.js';
 import * as THREE from './vendor/three.module.js';
 import {roman} from './mission.js';
 // Bound volumes remain meshes throughout pulling, handling and shelving.
@@ -16,7 +17,7 @@ for(let i=0;i<4;i++){
  const sheetPivot=new THREE.Group();sheetPivot.position.set(-.175,0,.057);root.add(sheetPivot);
  box(.35,.50,.003,.175,0,0,paper,sheetPivot);
  label('Professor Linds\nprivate samling\n\n← Vend titelbladet',.33,.47,.175,0,.003,{size:36,parent:sheetPivot});
- const clue=label(symbols[i]+'\n\n'+(getState().variant.difficulty==='family'?String(getState().variant.bookValues[i]):roman(getState().variant.bookValues[i]))+'\n\nEt mærke. Et tal.',.33,.46,.005,0,.055,{size:64,parent:root});
+ const clue=label(symbols[i]+'\n\n'+(bookInscription(getState().variant,i)||((getState().variant.difficulty==='family'?String(getState().variant.bookValues[i]):roman(getState().variant.bookValues[i]))+'\n\nEt mærke. Et tal.')),.33,.46,.005,0,.055,{size:64,parent:root});
  root.userData={id:'book'+i,name:titles[i]+' · træk bogen ud',bookIndex:i};hinge.userData.bookPart='cover';sheetPivot.userData.bookPart='page';
  books.push({root,hinge,sheetPivot,index:i,home:root.position.clone(),rotation:root.quaternion.clone(),angle:0,page:0,spin:0,tilt:0,pull:0,stage:'shelf',clue});
 }
